@@ -5,8 +5,6 @@ import copy
 rawData = get_data(day=7, year=2022)
 data = rawData.splitlines()
 
-
-
 tree = Tree()
 tree.create_node('/', 0)
 currentDirectory = 0
