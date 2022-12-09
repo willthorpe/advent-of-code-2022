@@ -9,14 +9,12 @@ tree = Tree()
 tree.create_node('/', 0)
 currentDirectory = 0
 
-def addSubDirectoryAmounts(directory, subDirectory):
-    folderSizes.update({directory: folderSizes[directory] + folderSizes[subDirectory]})
+def findSizeOfSubDirectories(initialSubDirectory, subDirectoryToFind):
+    folderSizes.update({initialSubDirectory: folderSizes[initialSubDirectory] + folderSizes[subDirectoryToFind]})
 
-def findOtherUsesOfSubDirectory(initialSubDirectory, subDirectoryToFind):
     for otherUsesOfSubDirectory in subDirectoriesToAdd:
         if otherUsesOfSubDirectory[0] == subDirectoryToFind:
-            addSubDirectoryAmounts(initialSubDirectory, otherUsesOfSubDirectory[1])
-            findOtherUsesOfSubDirectory(initialSubDirectory, otherUsesOfSubDirectory[1])
+            findSizeOfSubDirectories(initialSubDirectory, otherUsesOfSubDirectory[1])
 
 for idx, command in enumerate(data):
     if "$ cd" in command:
@@ -48,9 +46,8 @@ for i in tree.expand_tree():
         elif tree.children(node.identifier):
             subDirectoriesToAdd.append([parent.identifier, node.identifier])
 
-for subdirectory in subDirectoriesToAdd:
-    addSubDirectoryAmounts(subdirectory[0], subdirectory[1])
-    findOtherUsesOfSubDirectory(subdirectory[0], subdirectory[1])
+for subDirectory in subDirectoriesToAdd:
+    findSizeOfSubDirectories(subDirectory[0], subDirectory[1])
 
 totalSumOfFoldersUnder100000 = 0
 
