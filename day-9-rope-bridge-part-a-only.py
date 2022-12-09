@@ -4,17 +4,6 @@ import numpy as np
 rawData = get_data(day=9, year=2022)
 data = rawData.splitlines()
 
-data = [
-  'R 5',
-  'U 8',
-  'L 8',
-  'D 3',
-  'R 17',
-  'D 10',
-  'L 25',
-  'U 20',
-]
-
 maxHeight = 1
 maxWidth = 1
 
